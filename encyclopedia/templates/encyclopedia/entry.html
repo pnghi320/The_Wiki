@@ -1,0 +1,16 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Encyclopedia: {{entryName}}
+{% endblock %}
+
+{% block body %}
+    {% load markdown_extras %}
+    {{entries| markdown | safe}}
+    <form action="{% url 'wiki:editPage'%}" method="POST" style=" width: 100%; height: 100%;">
+        <button type="submit" name="edit" id="id_edit" style="margin-top: 10px;" >Edit</button></td>
+        <input type="hidden" name = "title" value="{{entryName}}">
+        <input type="hidden" name="content" value="{{entries}}">
+        {%csrf_token%}
+    </form>
+{% endblock %}
